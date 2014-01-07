@@ -1,5 +1,5 @@
 from goatd import goat
 
-goat.set_rudder(0)
+goat.do_hardware(0)
 
 print goat.heading()
