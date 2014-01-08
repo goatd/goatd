@@ -1,3 +1,3 @@
-goat.do_hardware(0)
+goat.do_hardware(2)
 
-print goat.heading()
+print(goat.heading())
