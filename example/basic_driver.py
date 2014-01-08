@@ -1,8 +1,8 @@
-import goatd
+some_hardware = {}
 
-some_hardware = object()
-
-@goatd.do_hardware
+@goatd.do_something
 def do_hardware(amount):
-    some_hardware.something = amount
+    some_hardware['something'] = amount
     return amount
+
+print(do_hardware(4))
