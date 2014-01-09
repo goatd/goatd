@@ -30,8 +30,8 @@ def main():
     assert len(sys.argv) > 2
     goatd = imp.new_module('goatd')
     vars(goatd).update(globals())
-    drive_path = sys.argv[1]
-    driver = inject_import('driver', drive_path, {'goatd': goatd})
+    driver_path = sys.argv[1]
+    driver = inject_import('driver', driver_path, {'goatd': goatd})
 
     behaviour_path = sys.argv[2]
     behaviour = inject_import('behaviour',
