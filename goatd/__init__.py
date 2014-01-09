@@ -6,17 +6,7 @@ import os
 from functools import wraps
 
 from .decorators import *
-
-class Goat(object):
-    def __init__(self, driver):
-        self.driver = driver
-
-    def __getattr__(self, name):
-        func = vars(self.driver).get(name)
-        if func is None:
-            raise AttributeError
-        else:
-            return func
+from .goat import Goat
 
 def inject_import(name, filename, inject):
     module = imp.new_module(name)
