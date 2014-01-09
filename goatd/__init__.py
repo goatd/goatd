@@ -23,16 +23,28 @@ class Driver(object):
                                     {'goatd': goatd})
         self.path = driver_path
 
+class Behaviour(object):
+    def __init__(self, behaviour_path, goat):
+        self.goat = goat
+        self.path = behaviour_path
+
+    def run(self):
+        return inject_import('behaviour',
+                              self.path,
+                              {'goat': self.goat})
+
 def main():
     if len(sys.argv) > 1:
         conf = Config.from_file(sys.argv[1])
     else:
         conf = Config.from_file('goatd-config.json')
 
-    goatd = imp.new_module('goatd')
-    vars(goatd).update(globals())
-    driver = Driver(conf.driver, goatd)
+    this = imp.new_module('goatd')
+    vars(this).update(globals())
+    driver = Driver(conf.driver, this)
 
-    behaviour = inject_import('behaviour',
-                              conf.behaviour,
-                              {'goat': Goat(driver)})
+    behaviour = Behaviour(conf.behaviour, Goat(driver))
+
+    for b in ['example/basic_behaviour.py', 'example/b2.py', 'example/b3.py']:
+        behaviour.path = b
+        behaviour.run()
