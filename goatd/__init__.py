@@ -16,14 +16,23 @@ def inject_import(name, filename, inject):
     sys.modules[name] = module
     return module
 
+class Driver(object):
+    def __init__(self, driver_path, goatd):
+        self.module = inject_import('driver',
+                                    driver_path,
+                                    {'goatd': goatd})
+        self.path = driver_path
+
 def main():
     assert len(sys.argv) > 2
+    driver_path = sys.argv[1]
+
     goatd = imp.new_module('goatd')
     vars(goatd).update(globals())
-    driver_path = sys.argv[1]
-    driver = inject_import('driver', driver_path, {'goatd': goatd})
+    driver = Driver(driver_path, goatd)
 
     behaviour_path = sys.argv[2]
+
     behaviour = inject_import('behaviour',
                               behaviour_path,
                               {'goat': Goat(driver)})
