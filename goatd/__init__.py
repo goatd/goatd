@@ -11,7 +11,7 @@ class Goat(object):
         self.driver = driver
 
     def __getattr__(self, name):
-        f = vars(driver).get(name)
+        f = vars(self.driver).get(name)
         if f is None:
             raise AttributeError
         else:
@@ -39,11 +39,12 @@ def do_something(func):
         return r
     return inner
 
-assert len(sys.argv) > 2
-goatd = imp.new_module('goatd')
-vars(goatd).update(globals())
-drive_path = sys.argv[1]
-driver = inject_import(drive_path, {'goatd': goatd}, 'driver')
+def main():
+    assert len(sys.argv) > 2
+    goatd = imp.new_module('goatd')
+    vars(goatd).update(globals())
+    drive_path = sys.argv[1]
+    driver = inject_import(drive_path, {'goatd': goatd}, 'driver')
 
-behaviour_path = sys.argv[2]
-behaviour = inject_import(behaviour_path, {'goat': Goat(driver)}, 'behaviour')
+    behaviour_path = sys.argv[2]
+    behaviour = inject_import(behaviour_path, {'goat': Goat(driver)}, 'behaviour')
