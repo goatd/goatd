@@ -7,17 +7,16 @@ import time
 from functools import wraps
 
 class Goat(object):
-    def __init__(self):
-        pass
+    def __init__(self, driver):
+        self.driver = driver
 
     def __getattr__(self, name):
-        return lambda *args: print('called:', name)
+        return vars(driver).get(name)
 
 def module_name(path):
     return os.path.splitext(os.path.split(path)[-1])[0]
 
-def inject_import(filename, inject):
-    name = module_name(filename)
+def inject_import(filename, inject, name):
     module = imp.new_module(name)
     vars(module).update(inject)
     with open(filename) as f:
@@ -40,7 +39,7 @@ assert len(sys.argv) > 2
 goatd = imp.new_module('goatd')
 vars(goatd).update(globals())
 drive_path = sys.argv[1]
-inject_import(drive_path, {'goatd': goatd})
+driver = inject_import(drive_path, {'goatd': goatd}, 'driver')
 
 behaviour_path = sys.argv[2]
-inject_import(behaviour_path, {'goat': Goat()})
+behaviour = inject_import(behaviour_path, {'goat': Goat(driver)}, 'behaviour')
