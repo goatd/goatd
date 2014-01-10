@@ -1,7 +1,13 @@
 goatd
 =====
 
-Sailing goat daemon
+Robotic sailing goat daemon
+
+Terminology
+-----------
+
+  - `Behaviour` - performs a set of actions to make the goat do a particular task
+  - `Driver` - causes hardware to do interesting things based on actions
 
 Todo
 ----
