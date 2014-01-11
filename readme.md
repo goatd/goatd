@@ -1,7 +1,7 @@
-goatd
-=====
+goatd - sailing goat daemon
+===========================
 
-Robotic sailing goat daemon
+Experimental robotic sailing goat daemon.
 
 Terminology
 -----------
