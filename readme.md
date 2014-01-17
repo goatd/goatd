@@ -3,11 +3,20 @@ goatd - sailing goat daemon
 
 Experimental robotic sailing goat daemon.
 
-Terminology
+General architecture
 -----------
 
-  - `Behaviour` - performs a set of actions to make the goat do a particular task
-  - `Driver` - causes hardware to do interesting things based on actions
+Goatd runs as the manager for a goat control system, granting graceful
+startup, telemetry, logging and a built in simulator.
+
+There are two main components of a system written using `goatd`:
+
+  - the __driver__ interfaces with the particular set of hardware in the goat.
+
+  - the __behaviour__ performs a set of actions to make the goat do a
+    particular task. The API available for these scripts is supposed to be
+    declarative, with the idea that for any goat with a driver written, any
+    behavour script will work.
 
 ```
            goatd
@@ -21,6 +30,8 @@ Terminology
 
 Dependencies
 ------------
+
+Debian based systems:
 
     $ sudo apt-get install python-yaml
 
