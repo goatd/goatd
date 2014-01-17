@@ -6,8 +6,8 @@ Experimental robotic sailing goat daemon.
 General architecture
 -----------
 
-Goatd runs as the manager for a goat control system, granting graceful
-startup, telemetry, logging and a built in simulator.
+Goatd is designed to be the manager for a goat control system, granting
+graceful startup, telemetry, logging and a built in simulator.
 
 There are two main components of a system written using `goatd`:
 
