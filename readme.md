@@ -9,6 +9,22 @@ Terminology
   - `Behaviour` - performs a set of actions to make the goat do a particular task
   - `Driver` - causes hardware to do interesting things based on actions
 
+```
+           goatd
+             |
+        -----------
+       |           |
+     driver     behaviour
+       |
+  goat hardware
+```
+
+Dependencies
+------------
+
+    $ sudo apt-get install python-yaml
+
+
 Todo
 ----
 
