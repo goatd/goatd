@@ -37,9 +37,9 @@ class Behaviour(object):
 
 def main():
     if len(sys.argv) > 1:
-        conf = Config.from_file(sys.argv[1])
+        conf = Config.from_yaml(sys.argv[1])
     else:
-        conf = Config.from_file('goatd-config.json')
+        conf = Config.from_yaml('goatd-config.yaml')
 
     this = imp.new_module('goatd')
     vars(this).update(globals())
