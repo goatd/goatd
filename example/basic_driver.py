@@ -8,3 +8,7 @@ def do_hardware(amount):
 @goatd.heading
 def heading():
     return 2.43
+
+@goatd.wind
+def get_wind():
+    return 0.42
