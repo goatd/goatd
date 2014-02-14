@@ -41,9 +41,8 @@ def main():
     else:
         conf = Config.from_yaml('goatd-config.yaml')
 
-    this = imp.new_module('goatd')
-    vars(this).update(globals())
-    driver = Driver(conf.driver, this)
+    goat = Goat()
+    driver = Driver(conf.driver, goat)
 
-    behaviour = Behaviour(conf.behaviour, Goat(driver))
+    behaviour = Behaviour(conf.behaviour, goat)
     behaviour.run()
