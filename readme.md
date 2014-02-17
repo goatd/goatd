@@ -28,8 +28,16 @@ There are two main components of a system written using `goatd`:
   goat hardware
 ```
 
-Dependencies
-------------
+Installing
+----------
+
+Install virtualenv and pip
+
+    $ sudo easy_install virtualenv pip
+
+    $ mkdir env
+    $ virtualenv env
+
 
 With pip:
 
