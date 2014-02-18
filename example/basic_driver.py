@@ -1,21 +1,24 @@
+from goatd import Driver
+driver = Driver()
+
 some_hardware = {}
 
-@goatd.heading
+@driver.heading
 def heading():
     return 2.43
 
-@goatd.wind
+@driver.wind
 def get_wind():
     return 8.42
 
-@goatd.position
+@driver.position
 def position():
     return (2.343443, None)
 
-@goatd.rudder
+@driver.rudder
 def rudder(theta):
     return theta
 
-@goatd.sail
+@driver.sail
 def sail(theta):
     return theta
