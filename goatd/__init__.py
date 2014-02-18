@@ -1,11 +1,12 @@
 from __future__ import print_function
 
 import imp
+import os
 import sys
 
-from .decorators import *
 from .goat import Goat
 from .config import Config
+from .driver import Driver
 
 
 def inject_import(name, filename, inject):
@@ -14,14 +15,6 @@ def inject_import(name, filename, inject):
     with open(filename) as f:
         exec(f.read(), vars(module))
     return module
-
-
-class Driver(object):
-    def __init__(self, driver_path, goatd):
-        self.module = inject_import('driver',
-                                    driver_path,
-                                    {'goatd': goatd})
-        self.path = driver_path
 
 
 class Behaviour(object):
@@ -34,15 +27,23 @@ class Behaviour(object):
                              self.path,
                              {'goat': self.goat})
 
-
 def main():
     if len(sys.argv) > 1:
         conf = Config.from_yaml(sys.argv[1])
     else:
         conf = Config.from_yaml('goatd-config.yaml')
 
+    directory, name = os.path.split(conf.driver)
+    module_name = os.path.splitext(name)[0]
+    try:
+        found_module = imp.find_module(module_name, [directory])
+        driver_module = imp.load_module('driver_module', *found_module)
+    except Exception, e:
+        print(e)
+    finally:
+        found_module[0].close()
+
     goat = Goat()
-    driver = Driver(conf.driver, goat)
 
     behaviour = Behaviour(conf.behaviour, goat)
     behaviour.run()
