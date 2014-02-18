@@ -43,7 +43,7 @@ def main():
     finally:
         found_module[0].close()
 
-    goat = Goat()
+    goat = Goat(driver_module.driver)
 
     behaviour = Behaviour(conf.behaviour, goat)
     behaviour.run()
