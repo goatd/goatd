@@ -6,8 +6,7 @@ except ImportError:
 
 class GoatdRequestHandler(BaseHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        print(args, kwargs)
-        super(GoatdRequestHandler, self).__init__(*args, **kwargs)
+        BaseHTTPRequestHandler.__init__(self, *args, **kwargs)
 
     def do_GET(self, *args, **kwargs):
         print('Requested', self.path)
