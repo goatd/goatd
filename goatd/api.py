@@ -3,9 +3,9 @@ try:
 except ImportError:
     from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 
-import os
 import logging
 import json
+
 
 class GoatdHTTPServer(HTTPServer):
     def __init__(self, goat,
@@ -39,6 +39,10 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
         logging.log('REST request {}'.format(self.path), level=logging.VERBOSE)
 
 if __name__ == '__main__':
-    httpd = GoatdHTTPServer(object(), ('', 2222),
+    class GoatMock(object):
+        def __init__(self):
+            self.heading = 24.23
+
+    httpd = GoatdHTTPServer(GoatMock(), ('', 2222),
         GoatdRequestHandler)
     httpd.serve_forever()
