@@ -3,19 +3,29 @@ try:
 except ImportError:
     from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 
+import os
+import logging
+
+class GoatdHTTPServer(HTTPServer):
+    def __init__(self, goat,
+            server_address, RequestHandlerClass, bind_and_activate=True):
+
+        HTTPServer.__init__(self, server_address, RequestHandlerClass, bind_and_activate)
+        self.goat = goat
 
 class GoatdRequestHandler(BaseHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        BaseHTTPRequestHandler.__init__(self, *args, **kwargs)
+    server_version = 'goatd/0.1'
 
     def do_GET(self, *args, **kwargs):
-        print('Requested', self.path)
         self.send_response(200)
         self.send_header('Content-Type', 'application/JSON')
         self.end_headers()
-        self.request.sendall('hi there'.encode())
+        self.request.sendall('hi there {}\n'.format(self.server.goat).encode())
+
+    def log_request(self, code='-', size='-'):
+        logging.log('REST request {}'.format(self.path), level=logging.VERBOSE)
 
 if __name__ == '__main__':
-    httpd = HTTPServer(('', 2222),
+    httpd = GoatdHTTPServer(object(), ('', 2222),
         GoatdRequestHandler)
     httpd.serve_forever()
