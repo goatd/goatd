@@ -15,11 +15,15 @@ class GoatdHTTPServer(HTTPServer):
         self.goat = goat
 
         self.handles = {
+            '/': self.goatd_info,
             '/heading': self.goat_heading
         }
 
     def goat_heading(self):
         return {'heading': self.goat.heading}
+
+    def goatd_info(self):
+        return {'goatd': {'version': 0.1}}
 
 
 class GoatdRequestHandler(BaseHTTPRequestHandler):
