@@ -8,6 +8,7 @@ import traceback
 from .goat import Goat
 from .config import Config
 from .driver import Driver
+from .api import GoatdHTTPServer, GoatdRequestHandler
 
 
 def inject_import(name, filename, inject):
@@ -47,5 +48,5 @@ def main():
 
     goat = Goat(driver_module.driver)
 
-    behaviour = Behaviour(conf.behaviour, goat)
-    behaviour.run()
+    httpd = GoatdHTTPServer(goat, ('', 2222), GoatdRequestHandler)
+    httpd.serve_forever()
