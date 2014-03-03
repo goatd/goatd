@@ -20,10 +20,14 @@ class GoatdHTTPServer(HTTPServer):
         }
 
     def goat_heading(self):
-        return {'heading': self.goat.heading}
+        return {'heading': self.goat.heading()}
 
     def goatd_info(self):
         return {'goatd': {'version': 0.1}}
+
+    def goat_function(self, function_string):
+        json_content = self.handles.get(function_string)()
+        return json.dumps(json_content).encode()
 
 
 class GoatdRequestHandler(BaseHTTPRequestHandler):
@@ -34,8 +38,7 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'application/JSON')
             self.end_headers()
-            json_content = self.server.handles.get(self.path)()
-            self.request.sendall(json.dumps(json_content).encode())
+            self.request.sendall(self.server.goat_function(self.path))
         else:
             print('fail')
 
