@@ -26,6 +26,7 @@ class GoatdHTTPServer(HTTPServer):
         HTTPServer.__init__(self, server_address, RequestHandlerClass,
                             bind_and_activate)
         self.goat = goat
+        self.running = True
 
         self.handles = {
             '/': self.goatd_info,
@@ -43,7 +44,13 @@ class GoatdHTTPServer(HTTPServer):
         return {'goatd': {'version': 0.1}}
 
     def goatd_post(self, content):
-        print(content)
+        response = {}
+        if 'quit' in content:
+            if content.get('quit'):
+                self.running = False
+                response['quit'] = True
+
+        return response
 
     def goat_post_function(self, name, content):
         return self.post_handles.get(name)(content)
@@ -88,7 +95,8 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
         length = int(self.headers.getheader('content-length'))
         data = json.loads(self.rfile.read(length))
         if self.path in self.server.post_handles:
-            self.server.goat_post_function(self.path, data)
+            response_data = self.server.goat_post_function(self.path, data)
+            self.send_json(json.dumps(response_data).encode())
 
     def log_request(self, code='-', size='-'):
         '''Log the request stdout.'''
