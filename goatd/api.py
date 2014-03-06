@@ -6,6 +6,7 @@ except ImportError:
 import logging
 import json
 
+
 def get_deep_attr(obj, path):
     if len(path) > 1:
         attr, path = path[0], path[1:]
@@ -13,11 +14,13 @@ def get_deep_attr(obj, path):
     else:
         return getattr(obj, path[0])
 
+
 class GoatdHTTPServer(HTTPServer):
     def __init__(self, goat,
-            server_address, RequestHandlerClass, bind_and_activate=True):
+                 server_address, RequestHandlerClass, bind_and_activate=True):
 
-        HTTPServer.__init__(self, server_address, RequestHandlerClass, bind_and_activate)
+        HTTPServer.__init__(self, server_address, RequestHandlerClass,
+                            bind_and_activate)
         self.goat = goat
 
         self.handles = {
@@ -73,5 +76,5 @@ if __name__ == '__main__':
             self.heading = 24.23
 
     httpd = GoatdHTTPServer(GoatMock(), ('', 2222),
-        GoatdRequestHandler)
+                            GoatdRequestHandler)
     httpd.serve_forever()
