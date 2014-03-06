@@ -1,9 +1,7 @@
 #!/bin/bash
 
-./goatd-start &
+./goatd-start test/config.yaml &
 goatd_pid=$!
-
-echo "goatd started"
 
 sleep 1
 
