@@ -36,4 +36,5 @@ def main():
     goat = Goat(driver_module.driver)
 
     httpd = GoatdHTTPServer(goat, ('', conf.goatd.port), GoatdRequestHandler)
-    httpd.serve_forever()
+    while httpd.running:
+        httpd.handle_request()
