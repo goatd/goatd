@@ -32,11 +32,21 @@ class GoatdHTTPServer(HTTPServer):
             '/heading': self.goat_heading
         }
 
+        self.post_handles = {
+            '/': self.goatd_post,
+        }
+
     def goat_heading(self):
         return {'heading': self.goat.heading()}
 
     def goatd_info(self):
         return {'goatd': {'version': 0.1}}
+
+    def goatd_post(self, content):
+        print(content)
+
+    def goat_post_function(self, name, content):
+        return self.post_handles.get(name)(content)
 
     def goat_function(self, function_string):
         '''Return the encoded json response from an endpoint string.'''
@@ -77,7 +87,8 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
         '''Handle a POST request to the server.'''
         length = int(self.headers.getheader('content-length'))
         data = json.loads(self.rfile.read(length))
-        print(data)
+        if self.path in self.server.post_handles:
+            self.server.goat_post_function(self.path, data)
 
     def log_request(self, code='-', size='-'):
         '''Log the request stdout.'''
