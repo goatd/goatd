@@ -1,9 +1,7 @@
 #!/bin/bash
 
 function log() {
-    echo ""
-    echo "        $1"
-    echo
+    echo  -e "\n    $1\n"
 }
 
 ./goatd-start test/config.yaml &
