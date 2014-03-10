@@ -1,4 +1,4 @@
-goatd - sailing goat daemon
+goatd - sailing goat daemon [![BuildStatus](https://travis-ci.org/goatd/goatd.png?branch=master)](https://travis-ci.org/goatd/goatd)
 ===========================
 
 Experimental robotic sailing goat daemon.
