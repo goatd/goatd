@@ -1,4 +1,4 @@
 #!/usr/bin/env python
 
 import goatd
-goatd.main()
+goatd.run()
