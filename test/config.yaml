@@ -1,5 +1,0 @@
-goatd:
-    port: 2222
-
-scripts:
-    driver: test/driver.py
