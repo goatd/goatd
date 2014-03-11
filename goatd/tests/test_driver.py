@@ -36,3 +36,13 @@ class TestDriver(object):
         driver = goatd.load_driver(self.mock_config)
         heading = driver.handlers.get('heading')
         assert heading() == 2.43
+
+    def test_handler_decorators(self):
+        driver = goatd.load_driver(self.mock_config)
+
+        @driver.handler('test_handler_decorators')
+        def test():
+            return 'test passed'
+
+        func = driver.handlers.get('test_handler_decorators')
+        assert func() == 'test passed'
