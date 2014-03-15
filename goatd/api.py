@@ -29,16 +29,12 @@ class GoatdHTTPServer(HTTPServer):
         self.running = True
 
         self.handles = {
-            '/': self.goatd_info,
-            '/heading': self.goat_heading
+            '/': self.goatd_info
         }
 
         self.post_handles = {
             '/': self.goatd_post,
         }
-
-    def goat_heading(self):
-        return {'heading': self.goat.heading()}
 
     def goatd_info(self):
         return {'goatd': {'version': 0.1}}
@@ -53,20 +49,27 @@ class GoatdHTTPServer(HTTPServer):
         return response
 
     def goat_post_function(self, name, content):
-        return self.post_handles.get(name)(content)
+        f = self.post_handles.get(name)
+        if f is not None:
+            return f(content)
+        else:
+            return self.driver_function(name, args=[content['value']])
 
     def goat_function(self, function_string):
         '''Return the encoded json response from an endpoint string.'''
         json_content = self.handles.get(function_string)()
         return json.dumps(json_content)
 
-    def driver_function(self, function_string):
+    def driver_function(self, function_string, args=None):
         '''
         Return the json response from the string describing the path to the
         attribute.
         '''
+        if args is None:
+            args = []
+
         obj_path = [p for p in function_string.split('/') if p]
-        json_content = {"result": get_deep_attr(self.goat, obj_path)()}
+        json_content = {"result": get_deep_attr(self.goat, obj_path)(*args)}
         return json.dumps(json_content)
 
 
@@ -103,9 +106,8 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
         '''Handle a POST request to the server.'''
         length = int(self.headers.get('content-length'))
         data = json.loads(self.rfile.read(length).decode('utf-8'))
-        if self.path in self.server.post_handles:
-            response_data = self.server.goat_post_function(self.path, data)
-            self.send_json(json.dumps(response_data))
+        response_data = self.server.goat_post_function(self.path, data)
+        self.send_json(json.dumps(response_data))
 
     def log_request(self, code='-', size='-'):
         '''Log the request stdout.'''
