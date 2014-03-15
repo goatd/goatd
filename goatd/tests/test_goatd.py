@@ -23,3 +23,14 @@ class TestGoatd(object):
         os.chdir(self.directory)
         conf = goatd.load_conf(sys.argv)
         assert conf.scripts.driver == 'driver.py'
+
+    def test_load_driver(self):
+        configuration = {
+            'scripts': {
+                'driver': 'driver.py'
+            }
+        }
+        mock_config = goatd.Config(configuration)
+        mock_config.filename = os.path.join(self.directory, 'c.yaml')
+        driver = goatd.load_driver(mock_config)
+        assert driver.handlers.get('pony')() == 'magic'
