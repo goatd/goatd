@@ -112,12 +112,3 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
     def log_request(self, code='-', size='-'):
         '''Log the request stdout.'''
         logging.log('REST request {}'.format(self.path), level=logging.VERBOSE)
-
-if __name__ == '__main__':
-    class GoatMock(object):
-        def __init__(self):
-            self.heading = 24.23
-
-    httpd = GoatdHTTPServer(GoatMock(), ('', 2222),
-                            GoatdRequestHandler)
-    httpd.serve_forever()
