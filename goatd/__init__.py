@@ -6,10 +6,10 @@ import sys
 import traceback
 
 from . import logging
+from .api import GoatdHTTPServer, GoatdRequestHandler
 from .goat import Goat
 from .config import Config
 from .driver import Driver
-from .api import GoatdHTTPServer, GoatdRequestHandler
 
 
 def load_conf(args):
