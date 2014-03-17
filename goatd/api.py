@@ -29,7 +29,8 @@ class GoatdHTTPServer(HTTPServer):
         self.running = True
 
         self.handles = {
-            '/': self.goatd_info
+            '/': self.goatd_info,
+            '/goat': self.goat_attr
         }
 
         self.post_handles = {
@@ -38,6 +39,13 @@ class GoatdHTTPServer(HTTPServer):
 
     def goatd_info(self):
         return {'goatd': {'version': 0.1}}
+
+    def goat_attr(self):
+        return {
+            "heading": self.goat.heading(),
+            "wind": self.goat.wind(),
+            "position": self.goat.position()
+        }
 
     def goatd_post(self, content):
         response = {}
