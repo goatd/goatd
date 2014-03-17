@@ -70,4 +70,8 @@ def run():
 
     httpd = GoatdHTTPServer(goat, ('', conf.goatd.port), GoatdRequestHandler)
     while httpd.running:
-        httpd.handle_request()
+        try:
+            httpd.handle_request()
+        except (KeyboardInterrupt, SystemExit):
+            logging.log('Quitting...')
+            sys.exit()
