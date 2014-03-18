@@ -42,9 +42,9 @@ class GoatdHTTPServer(HTTPServer):
 
     def goat_attr(self):
         return {
-            "heading": self.goat.heading(),
-            "wind": self.goat.wind(),
-            "position": self.goat.position()
+            'heading' self.goat.heading(),
+            'wind' self.goat.wind(),
+            'position' self.goat.position()
         }
 
     def goatd_post(self, content):
