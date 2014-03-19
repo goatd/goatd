@@ -42,9 +42,9 @@ class GoatdHTTPServer(HTTPServer):
 
     def goat_attr(self):
         return {
-            'heading' self.goat.heading(),
-            'wind' self.goat.wind(),
-            'position' self.goat.position()
+            'heading': self.goat.heading(),
+            'wind': self.goat.wind(),
+            'position': self.goat.position()
         }
 
     def goatd_post(self, content):
@@ -97,6 +97,7 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
         self.send_header('Content-Type', 'application/JSON')
         self.end_headers()
         self.request.sendall(content.encode())
+        self.server.socket.close()
 
     def do_GET(self, *args, **kwargs):
         '''Handle a GET request to the server.'''
