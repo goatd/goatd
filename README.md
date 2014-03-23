@@ -12,7 +12,7 @@ General architecture
 Goatd is designed to be the manager for a goat control system, granting
 graceful startup, telemetry, logging and a built in simulator.
 
-There are two main components of a system written using `goatd`:
+There are two main components of a system written using goatd:
 
   - the __driver__ interfaces with the particular set of hardware in the goat.
 
@@ -90,10 +90,9 @@ Drivers
 
 ### Driver basics
 
-Goatd drivers are implemented as a simple python module. When certain things
-are requested by a behaviour script, goatd runs one of the functions in the
-driver to find out things about the current state of the goat, or to set
-actuators to different positions.
+Goatd drivers are implemented as a simple python module. When a behaviour
+script requires information about the current state of the goat or needs to
+send a command to some hardware, goatd runs one of the functions in the driver.
 
 Drivers should implement the following basic functions:
 
