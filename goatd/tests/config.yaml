@@ -1,5 +1,11 @@
+name: goatd-test-config
 goatd:
     port: 2222
+    log:
+        gpx:
+            enabled: true
+            period: 11
+            filename: logs/gps_trace
 
 scripts:
     driver: driver.py
