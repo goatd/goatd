@@ -16,3 +16,6 @@ class TestGoat(object):
 
     def test_get_pony(self):
         assert self.goat.pony() == 'magic'
+
+    def test_active(self):
+        assert not self.goat.active
