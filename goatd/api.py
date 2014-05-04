@@ -30,12 +30,16 @@ class GoatdHTTPServer(HTTPServer):
 
         self.handles = {
             '/': self.goatd_info,
-            '/goat': self.goat_attr
+            '/goat': self.goat_attr,
+            '/active': self.goat_active
         }
 
         self.post_handles = {
             '/': self.goatd_post,
         }
+
+    def goat_active(self):
+        return {'value': self.goat.active}
 
     def goatd_info(self):
         return {'goatd': {'version': 0.1}}
