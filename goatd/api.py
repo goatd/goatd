@@ -41,10 +41,10 @@ class GoatdHTTPServer(HTTPServer):
 
     def wind(self):
         try:
-            direction = self.goat.wind_direction()
-        except Exception as e:
-            direction = None
-        return {'direction': direction}
+            return {'direction': self.goat.wind_direction()}
+        except AttributeError as e:
+            logging.log(e, logging.ERROR)
+            raise AttributeError(e)
 
     def goat_active(self):
         return {'value': self.goat.active}
