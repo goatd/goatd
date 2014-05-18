@@ -145,4 +145,4 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
 
     def log_request(self, code='-', size='-'):
         '''Log the request stdout.'''
-        logging.log('REST request {}'.format(self.path), level=logging.VERBOSE)
+        logging.log('{} requested'.format(self.path), level=logging.VERBOSE)
