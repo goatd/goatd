@@ -31,12 +31,16 @@ class GoatdHTTPServer(HTTPServer):
         self.handles = {
             '/': self.goatd_info,
             '/goat': self.goat_attr,
+            '/wind': self.wind,
             '/active': self.goat_active
         }
 
         self.post_handles = {
             '/': self.goatd_post,
         }
+
+    def wind(self):
+        return {'direction': self.goat.wind_direction()}
 
     def goat_active(self):
         return {'value': self.goat.active}
@@ -47,7 +51,7 @@ class GoatdHTTPServer(HTTPServer):
     def goat_attr(self):
         return {
             'heading': self.goat.heading(),
-            'wind': self.goat.wind(),
+            'wind': self.wind(),
             'position': self.goat.position(),
             'active': self.goat.active
         }
