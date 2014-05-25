@@ -6,7 +6,7 @@ except ImportError:
 from . import logging
 import json
 
-API_VERSION = 1.1
+VERSION = 1.1
 
 
 def get_deep_attr(obj, path):
@@ -52,7 +52,7 @@ class GoatdHTTPServer(HTTPServer):
         return {'value': self.goat.active}
 
     def goatd_info(self):
-        return {'goatd': {'version': API_VERSION}}
+        return {'goatd': {'version': VERSION}}
 
     def goat_attr(self):
         return {
@@ -105,7 +105,7 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
     Handle a single HTTP request. Returns JSON content using data from the rest
     of goatd.
     '''
-    server_version = 'goatd/{}'.format(API_VERSION)
+    server_version = 'goatd/{}'.format(VERSION)
 
     def send_json(self, content, code=200):
         self.send_response(code)
