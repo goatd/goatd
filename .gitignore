@@ -1,3 +1,4 @@
 *.pyc
 *.swp
 goatd/__pycache__
+build/
