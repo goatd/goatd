@@ -31,15 +31,15 @@ There are two main components of a system written using goatd:
   goat hardware
 ```
 
-Installing dependencies
------------------------
+Installing
+----------
 
 Goatd is tested on Python 2.7, 3.2 and 3.3.
 
 ### pip
 
 ```bash
-$ pip install -r requirements.txt
+$ pip install goatd
 ```
 
 ### Debian
@@ -48,12 +48,14 @@ On any Debian based distribution:
 
 ```bash
 $ apt-get install python-yaml
+$ python setup.py install
 ```
 
 ### Fedora
 
 ```bash
 $ yum install PyYAML
+$ python setup.py install
 ```
 
 Testing
