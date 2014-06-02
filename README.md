@@ -3,6 +3,7 @@ goatd - sailing goat daemon
 
 Experimental robotic sailing goat daemon.
 
+[![PyPIVersion](https://pypip.in/v/goatd/badge.png)](https://pypi.python.org/pypi/goatd)
 [![BuildStatus](https://travis-ci.org/goatd/goatd.png?branch=master)](https://travis-ci.org/goatd/goatd)
 [![CoverageStatus](https://coveralls.io/repos/goatd/goatd/badge.png?branch=master)](https://coveralls.io/r/goatd/goatd?branch=master)
 
