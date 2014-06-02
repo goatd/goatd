@@ -44,7 +44,7 @@ class GoatdHTTPServer(HTTPServer):
     def wind(self):
         try:
             speed = self.goat.wind_speed()
-        except AttributeError:
+        except (AttributeError, TypeError):
             speed = -1
 
         try:
