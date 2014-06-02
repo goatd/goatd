@@ -4,7 +4,7 @@ import goatd
 
 setup(
     name='goatd',
-    version=str(goatd.VERSION) + '.1',
+    version=str(goatd.VERSION) + '.2',
     author='Louis Taylor',
     author_email='kragniz@gmail.com',
     description=('Experimental daemon to control an autonomous sailing robot'),
@@ -14,6 +14,9 @@ setup(
     packages=['goatd'],
     scripts=['goatd-start'],
     requires=['PyYAML'],
+    install_requires=[
+        'PyYAML >= 3.11'
+        ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
