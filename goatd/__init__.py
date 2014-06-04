@@ -6,6 +6,7 @@ import sys
 import traceback
 
 from . import logging
+from . import nmea
 from .api import GoatdHTTPServer, GoatdRequestHandler, VERSION
 from .goat import Goat
 from .color import color
