@@ -7,6 +7,7 @@ import traceback
 
 from . import logging
 from . import nmea
+from . import plugin
 from .api import GoatdHTTPServer, GoatdRequestHandler, VERSION
 from .goat import Goat
 from .color import color
