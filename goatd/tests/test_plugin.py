@@ -17,3 +17,11 @@ def test_get_module_name():
 def test_load_plugins():
     modules = goatd.plugin.load_plugins(PLUGIN_FILENAME)
     assert True in [hasattr(module, 'THING') for module in modules]
+
+def test_start_plugins():
+    class c(object):
+        accessed = False
+    goat = c()
+    modules = goatd.plugin.load_plugins(PLUGIN_FILENAME)
+    goatd.plugin.start_plugins(modules, [goat])
+    assert goat.accessed == True
