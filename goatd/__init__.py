@@ -70,12 +70,17 @@ def load_driver(conf):
 
     return driver_module.driver
 
+def load_plugins(conf, goat):
+    plugins = plugin.find_plugins([conf.plugins.directory])
+    plugin_modules = plugin.load_plugins(plugins)
+    plugin.start_plugins(plugin_modules, [goat])
 
 def run():
     '''Run the main server.'''
     conf = load_conf(sys.argv)
     driver = load_driver(conf)
     goat = Goat(driver)
+    load_plugins(conf, goat)
 
     httpd = GoatdHTTPServer(goat, ('', conf.goatd.port), GoatdRequestHandler)
     while httpd.running:
