@@ -9,7 +9,8 @@ import goatd
 
 version = Popen(['git', 'describe'],
                 stdout=PIPE).communicate()[0].replace('v', '')
-assert version.startswith(str(goatd.VERSION))
+if not version.startswith(str(goatd.VERSION)):
+    version = goatd.VERSION
 
 setup(
     name='goatd',
