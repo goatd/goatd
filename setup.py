@@ -8,7 +8,7 @@ from subprocess import Popen, PIPE
 import goatd
 
 version = Popen(['git', 'describe'],
-                stdout=PIPE).communicate()[0].decode('utf8').replace('v', '')
+                stdout=PIPE).communicate()[0].decode('utf8')
 
 if not version.startswith(str(goatd.VERSION)):
     version = goatd.VERSION
