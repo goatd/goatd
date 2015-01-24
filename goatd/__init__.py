@@ -71,9 +71,10 @@ def load_driver(conf):
     return driver_module.driver
 
 def load_plugins(conf, goat):
-    plugins = plugin.find_plugins([conf.plugins.directory])
-    plugin_modules = plugin.load_plugins(plugins)
-    plugin.start_plugins(plugin_modules, [goat])
+    if conf.get('plugins') is not None:
+        plugins = plugin.find_plugins([conf.plugins.directory])
+        plugin_modules = plugin.load_plugins(plugins)
+        plugin.start_plugins(plugin_modules, [goat])
 
 def run():
     '''Run the main server.'''
