@@ -13,18 +13,18 @@ class TestGoatd(object):
 
     def test_load_json_config(self):
         conf_file = os.path.join(self.directory, 'config.json')
-        conf = goatd.load_conf(sys.argv + [conf_file])
+        conf = goatd.load_conf(conf_file)
         assert conf.scripts.driver == 'driver.py'
 
     def test_load_yaml_config(self):
         conf_file = os.path.join(self.directory, 'config.yaml')
-        conf = goatd.load_conf(sys.argv + [conf_file])
+        conf = goatd.load_conf(conf_file)
         assert conf.scripts.driver == 'driver.py'
 
     def test_load_default(self):
         current_dir = os.getcwd()
         os.chdir(self.directory)
-        conf = goatd.load_conf(sys.argv)
+        conf = goatd.load_conf('config.yaml')
         assert conf.scripts.driver == 'driver.py'
 
     def test_load_driver(self):
