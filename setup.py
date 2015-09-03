@@ -23,7 +23,7 @@ setup(
     keywords='goat sailing wrapper rest',
     url='https://github.com/goatd/goatd',
     packages=['goatd'],
-    scripts=['goatd-start'],
+    scripts=['bin/goatd'],
     requires=['PyYAML'],
     install_requires=[
         'PyYAML >= 3.11'
