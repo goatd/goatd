@@ -59,6 +59,29 @@ $ yum install PyYAML
 $ python setup.py install
 ```
 
+Running goatd
+-------------
+
+After you have installed goat, it can be run with `$ goatd`.
+
+Output will be similar to:
+
+```bash
+$ goatd
+[15:43:55] loaded function heading as "heading"
+[15:43:55] loaded function get_wind as "wind_direction"
+[15:43:55] loaded function get_wind_speed as "wind_speed"
+[15:43:55] loaded function position as "position"
+[15:43:55] loaded function rudder as "rudder"
+[15:43:55] loaded function sail as "sail"
+[15:43:55] loaded driver from example/basic_driver.py
+```
+
+The original aim was this command would also run your behaviour directly after
+startup, but this functionality is not yet implemented (see [the
+issue](https://github.com/goatd/goatd/issues/1)). After goatd is running, you
+should run your behaviour manually.
+
 Drivers
 -------
 
