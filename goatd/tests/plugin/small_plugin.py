@@ -1,5 +1,5 @@
 THING = True
 
-def plugin_main(goat):
+def main(goat):
     goat.accessed = True
     return True
