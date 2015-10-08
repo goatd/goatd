@@ -1,5 +1,5 @@
 THING = True
 
-def main(goat):
+def init(goat):
     goat.accessed = True
     return True
