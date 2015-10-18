@@ -117,6 +117,21 @@ Using the goatd API
 
 Goatd's main method of interaction is via the JSON API.
 
+``/``
+-----
+
+- ``GET``
+
+  Returns the current status and version of goatd. Example output:
+
+  .. code:: json
+
+      {
+         "goatd": {
+           "version": 1.1
+         }
+      }
+
 Drivers
 =======
 
