@@ -30,6 +30,7 @@ There are two main components of a system written using goatd:
   behavour script will work.
 
 .. code::
+
              goatd
                |
           -----------
@@ -109,6 +110,12 @@ run your behaviour manually.
 
 If you would like to use a different config file in a different location, pass
 the path as an argument to ``goatd``. For example, ``$ goatd /etc/goatd/fancy-conf.yaml``.
+
+
+Using the goatd API
+===================
+
+Goatd's main method of interaction is via the JSON API.
 
 Drivers
 =======
