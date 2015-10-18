@@ -22,9 +22,9 @@ graceful startup, telemetry, logging and a built in simulator.
 
 There are two main components of a system written using goatd:
 
-- the __driver__ interfaces with the particular set of hardware in the goat.
+- the *driver* interfaces with the particular set of hardware in the goat.
 
-- the __behaviour__ performs a set of actions to make the goat do a
+- the *behaviour* performs a set of actions to make the goat do a
   particular task. The API available for these scripts is supposed to be
   declarative, with the idea that for any goat with a driver written, any
   behavour script will work.
@@ -103,9 +103,9 @@ Output will be similar to:
     [15:43:55] loaded driver from example/basic_driver.py
 
 The original aim was this command would also run your behaviour directly after
-startup, but this functionality is not yet implemented (see [the
-issue](https://github.com/goatd/goatd/issues/1)). After goatd is running, you
-should run your behaviour manually.
+startup, but this functionality is not yet implemented (see `the issue
+<https://github.com/goatd/goatd/issues/1>`_). After goatd is running, you should
+run your behaviour manually.
 
 If you would like to use a different config file in a different location, pass
 the path as an argument to ``goatd``. For example, ``$ goatd /etc/goatd/fancy-conf.yaml``.
@@ -212,7 +212,7 @@ and run ``nosetests``. If all the tests pass, the output should be similar to:
     OK
 
 The current test results from the head of the ``master`` branch can be found
-[here](https://travis-ci.org/goatd/goatd).
+`here <https://travis-ci.org/goatd/goatd>`_.
 
 License
 =======
