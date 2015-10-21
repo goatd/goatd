@@ -11,7 +11,7 @@ Experimental robotic sailing goat daemon.
     :target: https://travis-ci.org/goatd/goatd
 
 .. image:: https://img.shields.io/coveralls/jekyll/jekyll/master.svg
-    :target: https://coveralls.io/r/goatd/bocatd?branch=master
+    :target: https://coveralls.io/r/goatd/goatd?branch=master
 
 
 General architecture
