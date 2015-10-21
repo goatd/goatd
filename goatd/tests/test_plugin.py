@@ -1,4 +1,5 @@
 import os
+import time
 
 import goatd
 
@@ -24,4 +25,5 @@ def test_start_plugins():
     goat = c()
     modules = goatd.plugin.load_plugins([PLUGIN_FILENAME])
     goatd.plugin.start_plugins(modules, [goat])
+    time.sleep(1)
     assert goat.accessed == True
