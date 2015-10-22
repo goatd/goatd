@@ -10,8 +10,8 @@ import goatd
 version = Popen(['git', 'describe'],
                 stdout=PIPE).communicate()[0].decode('utf8')
 
-if not version.startswith(str(goatd.VERSION)):
-    version = goatd.VERSION
+if not version.startswith(str(goatd.api.VERSION)):
+    version = goatd.api.VERSION
 
 setup(
     name='goatd',

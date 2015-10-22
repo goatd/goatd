@@ -5,19 +5,17 @@ import logging
 import imp
 import os
 import sys
-import traceback
 
 from . import logger
-from . import nmea
 from . import plugin
 from . import utils
-from .api import GoatdHTTPServer, GoatdRequestHandler, VERSION
+from .api import GoatdHTTPServer, GoatdRequestHandler
 from .goat import Goat
 from .color import color
 from .config import Config
-from .driver import Driver
 
 log = logging.getLogger()
+
 
 def load_conf(conf_file):
     '''
@@ -59,13 +57,14 @@ def load_driver(conf):
         _, filename, _ = found_module
         log.info('Loaded driver from {}'.format(color(filename, 34)))
 
-    except Exception as e:
+    except Exception:
         log.exception('Exception raised in driver module')
         raise
     finally:
         found_module[0].close()
 
     return driver_module.driver
+
 
 def load_plugins(conf, goat):
     plugin_dirs = [utils.reldir(__file__, 'coreplugins')]
@@ -76,6 +75,7 @@ def load_plugins(conf, goat):
     plugins = plugin.find_plugins(plugin_dirs)
     plugin_modules = plugin.load_plugins(plugins)
     plugin.start_plugins(plugin_modules, [goat])
+
 
 def parse_args():
     description = '''\
