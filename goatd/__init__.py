@@ -9,12 +9,12 @@ import sys
 from . import logger
 from . import plugin
 from . import utils
-from . import nmea
+from . import nmea  # noqa
 from .api import GoatdHTTPServer, GoatdRequestHandler
 from .goat import Goat
 from .color import color
 from .config import Config
-from .driver import Driver
+from .driver import Driver  # noqa
 
 log = logging.getLogger()
 
