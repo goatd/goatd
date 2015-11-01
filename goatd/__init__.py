@@ -105,7 +105,9 @@ def run():
     goat = Goat(driver)
     load_plugins(conf, goat)
 
-    httpd = GoatdHTTPServer(goat, ('', conf.goatd.port), GoatdRequestHandler)
+    httpd = GoatdHTTPServer(goat,
+                            (conf.goatd.interface, conf.goatd.port),
+                            GoatdRequestHandler)
     while httpd.running:
         try:
             httpd.handle_request()
