@@ -13,7 +13,7 @@ except ImportError:
 import json
 
 # reported api version
-VERSION = 1.1
+VERSION = 1.2
 
 log = logging.getLogger(__name__)
 
@@ -36,6 +36,8 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
 
         HTTPServer.__init__(self, server_address, RequestHandlerClass,
                             bind_and_activate)
+        log.info('goatd api listening on %s:%s', *server_address)
+
         self.goat = goat
         self.running = True
 
