@@ -8,7 +8,7 @@ PLUGIN_DIR = os.path.join(d, 'plugin')
 PLUGIN_FILENAME = os.path.join(PLUGIN_DIR, 'small_plugin.py')
 
 def test_find_plugins():
-    plugins = goatd.plugin.find_plugins([PLUGIN_DIR])
+    plugins = goatd.plugin.find_plugins([PLUGIN_DIR], ['small_plugin'])
     path_in = ['goatd/goatd/tests/plugin/small_plugin.py' in p for p in plugins]
     assert True in path_in
 
@@ -24,6 +24,6 @@ def test_start_plugins():
         accessed = False
     goat = c()
     modules = goatd.plugin.load_plugins([PLUGIN_FILENAME])
-    goatd.plugin.start_plugins(modules, [goat])
+    goatd.plugin.start_plugins(modules, goat)
     time.sleep(1)
     assert goat.accessed == True
