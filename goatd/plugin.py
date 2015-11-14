@@ -16,8 +16,8 @@ goatd_module = None
 
 
 def get_goatd_module(goat):
+    global goatd_module
     if goatd_module is None:
-        global goatd_module
         goatd_module = Goatd(goat)
 
     return goatd_module
