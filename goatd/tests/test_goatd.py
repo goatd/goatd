@@ -1,10 +1,11 @@
 import sys
 import os
+import unittest
 
 import goatd
 
-class TestGoatd(object):
-    def __init__(self):
+class TestGoatd(unittest.TestCase):
+    def setUp(self):
         sys.argv = sys.argv[0:1]
         self.directory, _ = os.path.split(__file__)
 
