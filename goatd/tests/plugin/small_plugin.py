@@ -1,5 +1,5 @@
 THING = True
 
-def init(goat):
-    goat.accessed = True
+def init():
+    goatd.goat.accessed = True
     return True

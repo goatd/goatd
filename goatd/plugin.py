@@ -7,6 +7,22 @@ from .color import color
 log = logging.getLogger(__name__)
 
 
+class Goatd(object):
+    def __init__(self, goat):
+        self.goat = goat
+
+
+goatd_module = None
+
+
+def get_goatd_module(goat):
+    if goatd_module is None:
+        global goatd_module
+        goatd_module = Goatd(goat)
+
+    return goatd_module
+
+
 def get_module_name(filepath):
     _, name = os.path.split(filepath)
     module_name, _ = os.path.splitext(name)
@@ -46,7 +62,9 @@ def start_plugins(modules, goat):
     for module in modules:
         log.info('Starting plugin from {}'.format(
                  color(module.__file__, 37)))
-        module.init(goat)
+
+        module.goatd = get_goatd_module(goat)
+        module.init()
 
 
 def get_plugin_names_from_config(config):
