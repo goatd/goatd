@@ -10,7 +10,7 @@ Experimental robotic sailing goat daemon.
 .. image:: https://img.shields.io/travis/goatd/goatd.svg
     :target: https://travis-ci.org/goatd/goatd
 
-.. image:: https://img.shields.io/coveralls/jekyll/jekyll/master.svg
+.. image:: https://img.shields.io/coveralls/goatd/goatd/master.svg
     :target: https://coveralls.io/r/goatd/goatd?branch=master
 
 
