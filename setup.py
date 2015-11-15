@@ -5,11 +5,11 @@ except ImportError:
 
 from subprocess import Popen, PIPE
 
-import goatd
+from goatd import __version__
 
 setup(
     name='goatd',
-    version=goatd.VERSION,
+    version=__version__,
     author='Louis Taylor',
     author_email='louis@kragniz.eu',
     description=('Experimental daemon to control an autonomous sailing robot'),
