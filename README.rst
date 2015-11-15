@@ -78,15 +78,17 @@ Running goatd
 .. code:: bash
 
     $ goatd --help
-    usage: goatd [-h] [CONFIG FILE]
+    usage: goatd [-h] [--version] [CONFIG FILE]
 
     Experimental robotic sailing goat daemon.
 
     positional arguments:
       CONFIG FILE  a path to a configuration file
 
-      optional arguments:
-        -h, --help   show this help message and exit
+    optional arguments:
+      -h, --help   show this help message and exit
+      --version    show program's version number and exit
+
 
 After you have installed goat, it can be run with ``$ goatd``.
 
