@@ -7,15 +7,9 @@ from subprocess import Popen, PIPE
 
 import goatd
 
-version = Popen(['git', 'describe'],
-                stdout=PIPE).communicate()[0].decode('utf8')
-
-if not version.startswith(str(goatd.api.VERSION)):
-    version = goatd.api.VERSION
-
 setup(
     name='goatd',
-    version=version,
+    version=goatd.VERSION,
     author='Louis Taylor',
     author_email='louis@kragniz.eu',
     description=('Experimental daemon to control an autonomous sailing robot'),

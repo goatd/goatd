@@ -1,10 +1,11 @@
 import os
+import unittest
 
 import goatd
 
 
-class TestDriver(object):
-    def setup(self):
+class TestDriver(unittest.TestCase):
+    def setUp(self):
         self.directory, _ = os.path.split(__file__)
 
         configuration = {
