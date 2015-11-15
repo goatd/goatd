@@ -1,15 +1,13 @@
 import sys
 import os
+import unittest
 
 import goatd
 
-class TestGoatd(object):
-    def __init__(self):
+class TestGoatd(unittest.TestCase):
+    def setUp(self):
         sys.argv = sys.argv[0:1]
         self.directory, _ = os.path.split(__file__)
-
-    def test_version(self):
-        assert goatd.VERSION == 1.1
 
     def test_load_json_config(self):
         conf_file = os.path.join(self.directory, 'config.json')

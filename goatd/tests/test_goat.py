@@ -1,3 +1,5 @@
+import unittest
+
 import goatd
 
 class MockDriver(object):
@@ -7,8 +9,8 @@ class MockDriver(object):
             'pony': lambda: 'magic'
         }
 
-class TestGoat(object):
-    def setup(self):
+class TestGoat(unittest.TestCase):
+    def setUp(self):
         self.goat = goatd.Goat(MockDriver())
 
     def test_get_heading(self):
