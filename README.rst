@@ -90,7 +90,29 @@ Running goatd
       --version    show program's version number and exit
 
 
-After you have installed goat, it can be run with ``$ goatd``.
+After you have installed goatd, it can be run with ``$ goatd``.
+
+You will need to create a configuration file. It should look something like:
+
+.. code:: yaml
+
+	goatd:
+		port: 2222
+		interface: 127.0.0.1
+
+	plugin_directory: null
+
+	plugins:
+		- logger:
+			period: 10
+			filename: logs/gps_trace
+
+	scripts:
+		behaviour: example/basic_behaviour.py
+		driver: example/basic_driver.py
+
+The example config file (``goatd-config.yaml.example``) can be modified for
+your goat.
 
 Output will be similar to:
 
