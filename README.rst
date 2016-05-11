@@ -13,7 +13,7 @@ Experimental robotic sailing goat daemon.
 .. image:: https://img.shields.io/coveralls/goatd/goatd/master.svg
     :target: https://coveralls.io/r/goatd/goatd?branch=master
 
- Documentation is located at http://goatd.readthedocs.io/.
+Documentation is located at http://goatd.readthedocs.io/.
 
 License
 =======

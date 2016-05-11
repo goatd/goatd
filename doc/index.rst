@@ -20,15 +20,8 @@ There are two main components of a system written using goatd:
   declarative, with the idea that for any goat with a driver written, any
   behavour script will work.
 
-.. code::
-
-             goatd
-               |
-          -----------
-         |           |
-       driver     behaviour
-         |
-    goat hardware
+.. figure:: _static/goatd-arch.png
+   :scale: 50 %
 
 
 Installing
