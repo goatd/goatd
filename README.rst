@@ -96,20 +96,20 @@ You will need to create a configuration file. It should look something like:
 
 .. code:: yaml
 
-	goatd:
-		port: 2222
-		interface: 127.0.0.1
+    goatd:
+      port: 2222
+      interface: 127.0.0.1
 
-	plugin_directory: null
+    plugin_directory: null
 
-	plugins:
-		- logger:
-			period: 10
-			filename: logs/gps_trace
+    plugins:
+      - logger:
+        period: 10
+        filename: logs/gps_trace
 
-	scripts:
-		behaviour: example/basic_behaviour.py
-		driver: example/basic_driver.py
+    scripts:
+      behaviour: example/basic_behaviour.py
+      driver: example/basic_driver.py
 
 The example config file (``goatd-config.yaml.example``) can be modified for
 your goat.
