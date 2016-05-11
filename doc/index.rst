@@ -4,8 +4,7 @@ goatd documentation
 
 Contents:
 
-.. toctree::
-   :maxdepth: 2
+.. contents::
 
 General architecture
 ====================
