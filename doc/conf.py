@@ -52,6 +52,17 @@ project = 'goatd'
 copyright = '2016, Louis Taylor'
 author = 'Louis Taylor'
 
+html_theme_options = {
+        'logo': 'goatd.png',
+        'logo_name': True,
+        'description': 'Experimental robotic sailing goat daemon',
+        'github_user': 'goatd',
+        'github_repo': 'goatd',
+        'github_banner': True,
+        'github_button': True,
+        'show_powered_by': False,
+        }
+
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
