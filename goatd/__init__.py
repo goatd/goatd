@@ -71,6 +71,10 @@ def load_driver(conf):
     finally:
         found_module[0].close()
 
+    if not isinstance(driver_module.driver, BaseGoatdDriver):
+        log.error('Driver module does not instantiate BaseGoatdDriver')
+        sys.exit(1)
+
     return driver_module.driver
 
 
