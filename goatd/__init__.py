@@ -14,7 +14,7 @@ from .api import GoatdHTTPServer, GoatdRequestHandler
 from .goat import Goat
 from .color import color
 from .config import Config
-from .driver import DriverABC  # noqa
+from .driver import BaseGoatdDriver  # noqa
 
 __version__ = "1.1.3"
 
