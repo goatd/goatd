@@ -5,8 +5,8 @@ goatd documentation
 .. contents::
    :backlinks: none
 
-General architecture
-====================
+Introduction
+============
 
 Goatd is designed to be the manager for a goat control system, granting
 graceful startup, telemetry, logging and a built in simulator.
@@ -250,6 +250,47 @@ absolute. goatd will also expand ``~`` to your home directory:
 
     scripts:
         driver: ~/git/sails-goatd-driver/driver.py
+
+
+Plugins
+=======
+
+Plugins are loadable python modules that run in a seperate thread inside goatd.
+They have access to the current data about the goat.
+
+To implement a plugin, a class must be implemented that conforms to a certain
+interface (similar to how drivers are defined). The interface is simple:
+
+.. autoclass:: goatd.BasePlugin
+   :members:
+
+An example implementation would be:
+
+.. code:: python
+
+    from goatd import BasePlugin
+
+    class ExamplePlugin(BasePlugin):
+        def main(self):
+            while self.running:
+                position = self.goatd.goat.position()
+                print('logging some stuff ', position)
+
+    plugin = LoggerPlugin
+
+
+Some things to note:
+
+- You automatically get access to an object called ``self.goatd``. This
+  contains a ``goat`` attribute which you can use to interact with the live
+  goat.
+- ``self.running`` can be used to check if the plugin should end. When the
+  plugin is started by goatd, this will be set to ``True``. When goatd is about
+  to quit or plugins need to be stopped for some other reason, it will be set
+  to ``False``.
+
+TODO: document core plugins.
+
 
 Testing
 =======
