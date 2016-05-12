@@ -63,8 +63,9 @@ def start_plugins(modules, goat):
         log.info('Starting plugin from {}'.format(
                  color(module.__file__, 37)))
 
-        module.goatd = get_goatd_module(goat)
-        module.init()
+        goatd = get_goatd_module(goat)
+        plugin = module.plugin({}, goatd)
+        plugin.start()
 
 
 def get_plugin_names_from_config(config):
