@@ -54,7 +54,6 @@ def start_plugin(module, conf, goat):
     log.info('Starting plugin {} with config \'{}\''.format(
              color(module.plugin.__name__, 37),
              color(str(conf), 36)))
-    print(conf)
 
     goatd = get_goatd_module(goat)
     plugin = module.plugin(conf, goatd)
