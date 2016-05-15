@@ -10,11 +10,14 @@ from . import logger
 from . import plugin
 from . import nmea  # noqa
 from .api import GoatdHTTPServer, GoatdRequestHandler
+from .behaviour import Behaviour
+from .behaviour import BehaviourManager
 from .goat import Goat
 from .color import color
 from .config import Config
 from .driver import BaseGoatdDriver  # noqa
 from .base_plugin import BasePlugin  # noqa
+
 
 __version__ = '2.0.0'
 
@@ -106,7 +109,13 @@ def run():
     goat = Goat(driver)
     plugins = plugin.load_plugins(conf, goat)
 
-    httpd = GoatdHTTPServer(goat,
+    behaviour_manager = BehaviourManager()
+
+    b = Behaviour('testing', '/home/kragniz/git/goatd/goatd/tests/mock_behaviour')
+    #b.start()
+    behaviour_manager.add(b)
+
+    httpd = GoatdHTTPServer(goat, behaviour_manager,
                             (conf.goatd.interface, conf.goatd.port),
                             GoatdRequestHandler)
     while httpd.running:
@@ -116,4 +125,5 @@ def run():
             log.info('Quitting and requesting plugins end...')
             for p in plugins:
                 p.running = False
+            b.end()
             sys.exit()

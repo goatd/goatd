@@ -31,7 +31,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
     The main REST server for goatd. Listens for requests on port server_address
     and handles each request with RequestHandlerClass.
     '''
-    def __init__(self, goat,
+    def __init__(self, goat, behaviour_manager,
                  server_address, RequestHandlerClass, bind_and_activate=True):
 
         HTTPServer.__init__(self, server_address, RequestHandlerClass,
@@ -39,17 +39,34 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
         log.info('goatd api listening on %s:%s', *server_address)
 
         self.goat = goat
+        self.behaviour_manager = behaviour_manager
         self.running = True
 
         self.handles = {
             '/': self.goatd_info,
             '/goat': self.goat_attr,
             '/wind': self.wind,
-            '/active': self.goat_active
+            '/active': self.goat_active,
+            '/behaviours': self.behaviours,
         }
 
         self.post_handles = {
             '/': self.goatd_post,
+        }
+
+    def behaviours(self):
+        b = {
+                behaviour.name: {
+                    'running': behaviour.running,
+                     'filename': behaviour.filename
+                }
+             for behaviour in
+         self.behaviour_manager.behaviours
+        }
+
+        return {
+            'behaviours': b,
+            'current': self.behaviour_manager.active_behaviour
         }
 
     def wind(self):
