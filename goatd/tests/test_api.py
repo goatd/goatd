@@ -44,7 +44,8 @@ class TestAPI(unittest.TestCase):
         self.goat = MockGoat()
         for _ in range(self.TEST_PORTS):
             try:
-                self.httpd = goatd.GoatdHTTPServer(self.goat, ('', self.port),
+                self.httpd = goatd.GoatdHTTPServer(self.goat, object,
+                                                   ('', self.port),
                                                    goatd.GoatdRequestHandler)
                 break
             except socket.error as e:
