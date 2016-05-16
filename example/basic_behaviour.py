@@ -1,8 +1,9 @@
+#!/usr/bin/env python
 # This uses goatd_client, a python library for interacting with goatd. For more
 # information, see https://github.com/goatd/python-goatd
 # Run with $ python basic_behaviour.py, after goatd is running
 
-from goatd_client import Goat
+from goatdclient import Goat
 
 goat = Goat()
 
