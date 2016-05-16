@@ -41,6 +41,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
         self.goat = goat
         self.running = True
 
+        # set API endpoints
         self.handles = {
             '/': self.goatd_info,
             '/goat': self.goat_attr,
@@ -80,6 +81,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
         }
 
     def goatd_post(self, content):
+        # posting only supports shutting down the server and quitting goatd
         response = {}
         if 'quit' in content:
             if content.get('quit'):
@@ -150,6 +152,7 @@ class GoatdRequestHandler(BaseHTTPRequestHandler):
         if func_response is not None:
             self.send_json(json.dumps(func_response), code)
         else:
+            # if the handler runs, but doesn't return anything, 404
             self.send_json("404", code)
 
     def do_POST(self):
