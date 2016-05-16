@@ -42,7 +42,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
         self.behaviour_manager = behaviour_manager
         self.running = True
 
-        # set API endpoints
+        # set API endpoints for GETs
         self.handles = {
             '/': self.goatd_info,
             '/goat': self.goat_attr,
@@ -51,6 +51,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
             '/behaviours': self.behaviours,
         }
 
+        # set API endpoints for POSTs
         self.post_handles = {
             '/': self.goatd_post,
             '/behaviours': self.behaviours_post,
