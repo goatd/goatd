@@ -336,6 +336,17 @@ Some things to note:
 TODO: document core plugins.
 
 
+python-goatdclient
+==================
+
+Goatd has a client library written for python. It contains a python wrapper
+module and a command line client.
+
+You can install python-goatdclient from PyPi by running::
+
+    $ pip install python-goatdclient
+
+
 Testing
 =======
 
