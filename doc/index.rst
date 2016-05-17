@@ -27,34 +27,74 @@ There are two main components of a system written using goatd:
 Installing
 ==========
 
-Goatd is tested on Python 2.7 and 3.4.
+Goatd is currently tested and supported on Python 2.7 and 3.4. Support for
+python 2 may be dropped in the near future.
 
-From PyPi (recommended)
------------------------
+Installing in a virtualenv from PyPi (recommended)
+--------------------------------------------------
 
-.. code:: bash
+This installs goatd in a `virtualenv
+<http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_, keeping it
+seperate from the rest of the system.
+
+First, create a new virtualenv::
+
+    $ virtualenv env
+
+Activate this virtualenv::
+
+    $ source env/bin/activate
+
+Install goatd and its dependancies from the latest published stable release::
 
     $ pip install goatd
 
 
-Debian
-------
+Installing for development
+--------------------------
 
-On any Debian based distribution:
+First, clone the repository and change to the directory::
+
+    $ git clone https://github.com/goatd/goatd.git
+    $ cd goatd
+
+Create a new virtualenv::
+
+    $ virtualenv goatd-dev-env
+
+Activate this virtualenv::
+
+    $ source goatd-dev-env/bin/activate
+
+Install goatd in editable mode from the local copy::
+
+    $ pip install --editable .
+
+Installing when you don't care and live life on the edge (system wide installation)
+-----------------------------------------------------------------------------------
+
+First install dependencies:
+
+On any Debian based distribution (Debian, Ubuntu, Mint etc):
 
 .. code:: bash
 
     $ apt-get install python-yaml
-    $ python setup.py install
 
-Fedora
-------
+On Red Hat systems (Fedora, CentOS, etc):
 
 .. code:: bash
 
     $ dnf install PyYAML
-    $ python setup.py install
 
+Then clone the repository and change to the directory::
+
+    $ git clone https://github.com/goatd/goatd.git
+    $ cd goatd
+
+Run the installer::
+
+    $ sudo python setup.py install
 
 Running goatd
 =============
@@ -345,6 +385,14 @@ module and a command line client.
 You can install python-goatdclient from PyPi by running::
 
     $ pip install python-goatdclient
+
+Goatdclient includes the following user facing classes:
+
+.. autoclass:: goatdclient.Goat
+   :members:
+
+.. autoclass:: goatdclient.Behaviour
+   :members:
 
 
 Testing
