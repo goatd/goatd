@@ -15,6 +15,7 @@ from .behaviour import BehaviourManager
 from .goat import Goat
 from .color import color
 from .config import Config
+from .waypoints import WaypointManager
 from .driver import BaseGoatdDriver  # noqa
 from .base_plugin import BasePlugin  # noqa
 
@@ -124,8 +125,9 @@ def run():
     plugins = plugin.load_plugins(conf, goat)
 
     behaviour_manager = load_behaviours(conf)
+    waypoint_manager = WaypointManager()
 
-    httpd = GoatdHTTPServer(goat, behaviour_manager,
+    httpd = GoatdHTTPServer(goat, behaviour_manager, waypoint_manager,
                             (conf.goatd.interface, conf.goatd.port),
                             GoatdRequestHandler)
     while httpd.running:

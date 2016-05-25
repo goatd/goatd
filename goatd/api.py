@@ -5,6 +5,8 @@ from six.moves.socketserver import ThreadingMixIn
 
 import json
 
+from . import exceptions
+
 # reported api version
 VERSION = 1.2
 
@@ -24,7 +26,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
     The main REST server for goatd. Listens for requests on port server_address
     and handles each request with RequestHandlerClass.
     '''
-    def __init__(self, goat, behaviour_manager,
+    def __init__(self, goat, behaviour_manager, waypoint_manager,
                  server_address, RequestHandlerClass, bind_and_activate=True):
 
         HTTPServer.__init__(self, server_address, RequestHandlerClass,
@@ -33,6 +35,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
 
         self.goat = goat
         self.behaviour_manager = behaviour_manager
+        self.waypoint_manager = waypoint_manager
         self.running = True
 
         # set API endpoints for GETs
@@ -42,13 +45,31 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
             '/wind': self.wind,
             '/active': self.goat_active,
             '/behaviours': self.behaviours,
+            '/waypoints': self.waypoints,
         }
 
         # set API endpoints for POSTs
         self.post_handles = {
             '/': self.goatd_post,
             '/behaviours': self.behaviours_post,
+            '/waypoints': self.waypoints_post,
         }
+
+    def waypoints(self):
+        return {
+            'waypoints': self.waypoint_manager.waypoints,
+            'current': self.waypoint_manager.current,
+        }
+
+    def waypoints_post(self, content):
+        waypoints = content.get('waypoints', None)
+
+        try:
+            self.waypoint_manager.add_waypoints(waypoints)
+        except exceptions.WaypointMalformedError:
+            return {'error': 'bad waypoint values'}
+
+        return self.waypoints()
 
     def behaviours(self):
         b = {
