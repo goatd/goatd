@@ -15,7 +15,7 @@ class TestConfig(unittest.TestCase):
         assert config.goatd
 
     def test_load_json(self):
-        config = goatd.Config.from_json(self.json_file)
+        config = goatd.Config.from_yaml(self.json_file)
         assert config.goatd
 
     def test_port(self):
