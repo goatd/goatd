@@ -392,6 +392,15 @@ Goatdclient includes the following user facing classes:
 .. autoclass:: goatdclient.Behaviour
    :members:
 
+``Goat`` returns and uses special classes for bearings and latitude longitude
+points. These contain some common functionality.
+
+.. autoclass:: goatdclient.Point
+   :members:
+
+.. autoclass:: goatdclient.Bearing
+   :members:
+
 
 Testing
 =======
