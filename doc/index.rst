@@ -340,6 +340,68 @@ Plugins
 Plugins are loadable python modules that run in a separate thread inside goatd.
 They have access to the current data about the goat.
 
+Plugins are enabled with the main goatd configuration file. Each plugin may
+have a few extra parameters, but all have the ``enabled`` parameter to enable
+or disable it.
+
+Example:
+
+.. code-block:: yaml
+
+    plugins:
+      - some_plugin_name:
+        enabled: true
+
+
+Bundled plugins
+---------------
+
+Goatd comes with a few plugins preinstalled. These are:
+
+- ``logger``
+
+  This logs data about the current state of the goat to a file periodically.
+
+  Configuration parameters:
+
+    - ``period`` - the time in seconds between each logged line
+
+    - ``filename`` - the path to the file logs will be written to
+
+    Example:
+
+    .. code-block:: yaml
+
+        plugins:
+          - logger:
+            enabled: true
+            period: 10
+            filename: logs/log_trace
+
+- ``mavlink``
+
+  This allows goatd to communicate using a subset of the mavlink protocol.
+
+  Configuration parameters:
+
+    - ``device`` - the serial port to use
+
+    - ``baud`` - baud rate to use with the serial port
+
+  Example:
+
+  .. code-block:: yaml
+
+      plugins:
+        - mavlink:
+          enabled: true
+          device: /dev/ttyUSB0
+          baud: 115200
+
+
+Writing new plugins
+-------------------
+
 To implement a plugin, a class must be implemented that conforms to a certain
 interface (similar to how drivers are defined). The interface is simple:
 
@@ -370,8 +432,6 @@ Some things to note:
   plugin is started by goatd, this will be set to ``True``. When goatd is about
   to quit or plugins need to be stopped for some other reason, it will be set
   to ``False``.
-
-TODO: document core plugins.
 
 
 python-goatdclient
