@@ -114,7 +114,7 @@ Experimental robotic sailing goat daemon.
 
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('config', metavar='CONFIG FILE',
-                        default='goatd-config.yaml',
+                        default='/etc/goatd-config.yaml',
                         nargs='?',
                         help='a path to a configuration file')
     parser.add_argument('--version',
