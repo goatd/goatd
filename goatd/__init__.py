@@ -135,10 +135,11 @@ def run():
 
     driver = load_driver(conf)
     goat = Goat(driver)
-    plugins = plugin.load_plugins(conf, goat)
 
     behaviour_manager = load_behaviours(conf)
     waypoint_manager = WaypointManager()
+
+    plugins = plugin.load_plugins(conf, goat, waypoint_manager)
 
     httpd = GoatdHTTPServer(goat, behaviour_manager, waypoint_manager,
                             (conf.goatd.interface, conf.goatd.port),
