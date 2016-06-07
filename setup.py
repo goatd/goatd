@@ -14,7 +14,12 @@ setup(
     license='LGPL',
     keywords='goat sailing wrapper rest',
     url='https://github.com/goatd/goatd',
-    packages=['goatd'],
+    package_dir = {
+        'goatd': 'goatd',
+        'goatd.coreplugins': 'goatd/coreplugins',
+        'goatd.coreplugins.mavlink_common': 'goatd/coreplugins/mavlink_common',
+    },
+    packages=['goatd', 'goatd.coreplugins', 'goatd.coreplugins.mavlink_common'],
     scripts=['bin/goatd'],
     install_requires=[
         'PyYAML',
