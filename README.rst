@@ -1,8 +1,6 @@
-===========================
-goatd - sailing goat daemon 
-===========================
-
-Experimental robotic sailing goat daemon.
+=======================================
+goatd - the robotic sailing goat daemon 
+=======================================
 
 .. image:: https://img.shields.io/pypi/v/goatd.svg
     :target: https://pypi.python.org/pypi/goatd
