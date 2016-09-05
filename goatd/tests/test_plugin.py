@@ -33,7 +33,8 @@ class TestPlugin(unittest.TestCase):
 
         print(conf)
 
-        modules = goatd.plugin.load_plugins(goatd.config.Config(conf), object())
+        modules = goatd.plugin.load_plugins(goatd.config.Config(conf),
+                object(), object())
         assert True in [hasattr(module, 'accessed') for module in modules]
 
     def test_disabled_plugins(self):
@@ -51,5 +52,6 @@ class TestPlugin(unittest.TestCase):
 
         print(conf)
 
-        modules = goatd.plugin.load_plugins(goatd.config.Config(conf), object())
+        modules = goatd.plugin.load_plugins(goatd.config.Config(conf),
+                object(), object())
         assert modules == []
