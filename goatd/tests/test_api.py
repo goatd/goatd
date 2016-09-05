@@ -45,6 +45,7 @@ class TestAPI(unittest.TestCase):
         for _ in range(self.TEST_PORTS):
             try:
                 self.httpd = goatd.GoatdHTTPServer(self.goat, object,
+                                                   object,
                                                    ('', self.port),
                                                    goatd.GoatdRequestHandler)
                 break
