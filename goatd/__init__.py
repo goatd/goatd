@@ -151,7 +151,7 @@ def run():
     logger.setup_logging()
 
     driver = load_driver(conf)
-    goat = Goat(driver)
+    goat = Goat(driver, config=conf)
 
     behaviour_manager = load_behaviours(conf)
 
