@@ -23,6 +23,6 @@ class TestDriver(goatd.BaseGoatdDriver):
         pass
 
     def wind_direction(self):
-        pass
+        return 1
 
 driver = TestDriver()
