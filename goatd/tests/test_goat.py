@@ -2,13 +2,12 @@ import unittest
 
 import goatd
 
-class MockDriver(object):
-    def heading(self):
-        return 2.43
+from .driver import TestDriver
+
 
 class TestGoat(unittest.TestCase):
     def setUp(self):
-        self.goat = goatd.Goat(MockDriver())
+        self.goat = goatd.Goat(TestDriver())
         self.goat.update_cached_values()
 
     def test_get_heading(self):
