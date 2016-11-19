@@ -120,7 +120,7 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
             speed = -1
 
         try:
-            return {'direction': self.goat.wind_direction(),
+            return {'direction': self.goat.wind_apparent(),
                     'speed': speed}
         except AttributeError:
             log.exception('Error when attempting to read wind direction')
