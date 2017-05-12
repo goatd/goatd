@@ -1,6 +1,6 @@
 # This file is part of goatd, the Robotic Sailing Goat Daemon.
 #
-# Copyright (C) 2013-2016 Louis Taylor <louis@kragniz.eu>
+# Copyright (C) 2013-2017 Louis Taylor <louis@kragniz.eu>
 #
 # goatd is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License as published by the Free
