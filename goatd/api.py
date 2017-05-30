@@ -138,7 +138,9 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
             'heading': self.goat.heading(),
             'wind': self.wind(),
             'position': self.goat.position(),
-            'active': self.goat.active
+            'active': self.goat.active,
+            'rudder_angle': '{0:.4g}'.format(self.goat.target_rudder_angle),
+            'sail_angle': '{0:.4g}'.format(self.goat.target_sail_angle),
         }
 
     def goatd_post(self, content):
