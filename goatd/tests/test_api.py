@@ -12,6 +12,8 @@ import socket
 import json
 import unittest
 
+import tornado.ioloop
+
 import goatd
 
 
@@ -29,35 +31,26 @@ class MockGoat(object):
         self.position = lambda: (2.2312, -23.2323)
         self.pony = lambda: 'magic'
         self.rudder_angle = 20
+        self.target_rudder_angle = 0.0
+        self.target_sail_angle = 20.0
 
     def rudder(self, r):
         self.rudder_angle = r
 
 
 class TestAPI(unittest.TestCase):
-    TEST_PORTS = 50
-
     @classmethod
     def setUpClass(cls):
         cls.port = 2222
+        cls.goat = MockGoat()
 
-    def setUp(self):
-        self.goat = MockGoat()
-        for _ in range(self.TEST_PORTS):
-            try:
-                self.httpd = goatd.GoatdHTTPServer(self.goat, object,
-                                                   object,
-                                                   ('', self.port),
-                                                   goatd.GoatdRequestHandler)
-                break
-            except socket.error as e:
-                print('socket {} didn\'t work, trying a higher one '
-                      '({})'.format(self.port, e))
-                self.port += 1
+        cls.api = goatd.GoatdAPI(cls.goat, object,
+                                 object,
+                                 ('', cls.port))
 
-        self.http_thread = threading.Thread(target=self.httpd.handle_request)
-        self.http_thread.daemon = True
-        self.http_thread.start()
+        cls.http_thread = threading.Thread(target=cls.api.run)
+        cls.http_thread.daemon = True
+        cls.http_thread.start()
 
     def _base_url(self):
         return 'http://localhost:{}'.format(self.port)
@@ -92,16 +85,6 @@ class TestAPI(unittest.TestCase):
         d = json.loads(content.decode("utf-8"))
         assert d['goatd']['version'] == 1.3
 
-    def test_request_pony(self):
-        content = urlopen(self._url('/pony')).read()
-        d = json.loads(content.decode("utf-8"))
-        assert d.get('result') == 'magic'
-
-    def test_request_active(self):
-        content = urlopen(self._url('/active')).read()
-        d = json.loads(content.decode("utf-8"))
-        assert type(d.get('value')) is bool
-
     def test_request_goat(self):
         content = urlopen(self._url('/goat')).read()
         d = json.loads(content.decode("utf-8"))
@@ -112,11 +95,6 @@ class TestAPI(unittest.TestCase):
         d = json.loads(content.decode("utf-8"))
         assert all([attr in d for attr in ['absolute', 'apparent', 'speed']])
 
-    def test_request_nested(self):
-        content = urlopen(self._url('/nest/thing')).read()
-        d = json.loads(content.decode("utf-8"))
-        assert d.get('result') == 'well hello there'
-
     def test_request_nonexistant(self):
         try:
             urlopen(self._url('/does_not_exist'))
@@ -124,24 +102,19 @@ class TestAPI(unittest.TestCase):
         except HTTPError as e:
             assert e.code == 404
 
-    def test_request_heading(self):
-        content = urlopen(self._url('/heading')).read()
-        d = json.loads(content.decode("utf-8"))
-        assert d.get('result') == 45
-
     def test_content_type(self):
-        m = urlopen(self._url('/heading')).info()
+        m = urlopen(self._url('/sail')).info()
         assert m['content-type'] == 'application/JSON'
 
     def test_response_code(self):
-        code = urlopen(self._url('/heading')).getcode()
+        code = urlopen(self._url('/sail')).getcode()
         assert code == 200
 
     def test_quit(self):
         status_json = self._post_string(json.dumps({'quit': True})).read()
         status = json.loads(status_json.decode("utf-8"))
         assert status['quit'] == True
-        assert self.httpd.running == False
+        assert self.api.running == False
 
     def test_set_rudder(self):
         assert self.goat.rudder_angle == 20

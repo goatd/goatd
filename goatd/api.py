@@ -186,7 +186,9 @@ class WaypointHandler(tornado.web.RequestHandler):
 class GoatdAPI(object):
     def __init__(self, goat, behaviour_manager, waypoint_manager,
                  server_address):
-        log.info('goatd api listening on %s:%s', *server_address)
+        self.host = server_address[0]
+        self.port = server_address[1]
+        log.info('goatd api listening on %s:%s', self.host, self.port)
 
         self.goat = goat
         self.behaviour_manager = behaviour_manager
@@ -216,5 +218,5 @@ class GoatdAPI(object):
         ])
 
     def run(self):
-        self.app.listen(2222)
+        self.app.listen(self.port, address=self.host)
         tornado.ioloop.IOLoop.instance().start()
