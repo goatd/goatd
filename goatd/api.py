@@ -70,6 +70,29 @@ class GoatHandler(tornado.web.RequestHandler):
         self.write(response)
 
 
+class BehaviourHandler(tornado.web.RequestHandler):
+    def initialize(self, behaviour_manager):
+        self.behaviour_manager = behaviour_manager
+
+    def get(self):
+        b = {
+                behaviour.name: {
+                    'running': behaviour.running,
+                    'filename': behaviour.filename
+                }
+                for behaviour in
+                self.behaviour_manager.behaviours
+        }
+
+        response = {
+            'behaviours': b,
+            'active': self.behaviour_manager.active_behaviour
+        }
+
+        self.write(response)
+
+
+
 class GoatdAPI(object):
     def __init__(self, goat, behaviour_manager, waypoint_manager,
                  server_address):
@@ -82,7 +105,12 @@ class GoatdAPI(object):
 
         self.app = tornado.web.Application([
             (r'/', VersionHandler),
-            (r'/goat', GoatHandler, {'goat' : self.goat}),
+
+            (r'/goat', GoatHandler,
+                {'goat': self.goat}),
+
+            (r'/behaviours', BehaviourHandler,
+                {'behaviour_manager': self.behaviour_manager}),
         ])
 
     def run(self):
@@ -176,19 +204,6 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
 
     def goat_active(self):
         return {'value': self.goat.active}
-
-    def goatd_info(self):
-        return {'goatd': {'version': VERSION}}
-
-    def goat_attr(self):
-        return {
-            'heading': self.goat.heading(),
-            'wind': self.wind(),
-            'position': self.goat.position(),
-            'active': self.goat.active,
-            'rudder_angle': '{0:.4g}'.format(self.goat.target_rudder_angle),
-            'sail_angle': '{0:.4g}'.format(self.goat.target_sail_angle),
-        }
 
     def goatd_post(self, content):
         # posting only supports shutting down the server and quitting goatd
