@@ -74,8 +74,8 @@ class GoatHandler(tornado.web.RequestHandler):
             'wind': get_wind_dict(self.goat),
             'position': self.goat.position(),
             'active': self.goat.active,
-            'rudder_angle': '{0:.4g}'.format(self.goat.target_rudder_angle),
-            'sail_angle': '{0:.4g}'.format(self.goat.target_sail_angle),
+            'rudder_angle': self.goat.target_rudder_angle,
+            'sail_angle': self.goat.target_sail_angle,
         }
         self.write(response)
 
@@ -102,6 +102,23 @@ class BehaviourHandler(tornado.web.RequestHandler):
         self.write(response)
 
 
+class RudderHandler(tornado.web.RequestHandler):
+    def initialize(self, goat):
+        self.goat = goat
+
+    def get(self):
+        response = {'value': self.goat.target_rudder_angle}
+        self.write(response)
+
+    def post(self):
+        data = tornado.escape.json_decode(self.request.body)
+
+        value = data.get('value')
+        if value:
+            self.goat.rudder(value)
+
+        self.write({'value': value})
+
 
 class GoatdAPI(object):
     def __init__(self, goat, behaviour_manager, waypoint_manager,
@@ -117,6 +134,9 @@ class GoatdAPI(object):
             (r'/', GoatdHandler),
 
             (r'/goat', GoatHandler,
+                {'goat': self.goat}),
+
+            (r'/rudder', RudderHandler,
                 {'goat': self.goat}),
 
             (r'/behaviours', BehaviourHandler,
