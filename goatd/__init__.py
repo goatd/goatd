@@ -25,7 +25,7 @@ import sys
 
 from . import logger
 from . import plugin
-from .api import GoatdHTTPServer, GoatdRequestHandler
+from .api import GoatdAPI
 from .behaviour import Behaviour
 from .behaviour import BehaviourManager
 from .goat import Goat
@@ -173,15 +173,14 @@ def run():
 
     plugins = plugin.load_plugins(conf, goat, waypoint_manager)
 
-    httpd = GoatdHTTPServer(goat, behaviour_manager, waypoint_manager,
-                            (conf.goatd.interface, conf.goatd.port),
-                            GoatdRequestHandler)
-    while httpd.running:
-        try:
-            httpd.handle_request()
-        except (KeyboardInterrupt, SystemExit):
-            log.info('Quitting and requesting plugins end...')
-            behaviour_manager.stop()
-            for p in plugins:
-                p.running = False
-            sys.exit()
+    api = GoatdAPI(goat, behaviour_manager, waypoint_manager,
+                   (conf.goatd.interface, conf.goatd.port))
+
+    try:
+        api.run()
+    except (KeyboardInterrupt, SystemExit):
+        log.info('Quitting and requesting plugins end...')
+        behaviour_manager.stop()
+        for p in plugins:
+            p.running = False
+        sys.exit()
