@@ -138,6 +138,15 @@ class SailHandler(tornado.web.RequestHandler):
         self.write({'value': value})
 
 
+class WindHandler(tornado.web.RequestHandler):
+    def initialize(self, goat):
+        self.goat = goat
+
+    def get(self):
+        response = get_wind_dict(self.goat)
+        self.write(response)
+
+
 class GoatdAPI(object):
     def __init__(self, goat, behaviour_manager, waypoint_manager,
                  server_address):
@@ -158,6 +167,9 @@ class GoatdAPI(object):
                 {'goat': self.goat}),
 
             (r'/sail', SailHandler,
+                {'goat': self.goat}),
+
+            (r'/wind', WindHandler,
                 {'goat': self.goat}),
 
             (r'/behaviours', BehaviourHandler,
