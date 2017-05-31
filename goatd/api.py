@@ -33,9 +33,40 @@ VERSION = 1.3
 log = logging.getLogger(__name__)
 
 
+def get_wind_dict(goat):
+    try:
+        speed = goat.wind_speed()
+    except (AttributeError, TypeError):
+        speed = -1
+
+    try:
+        return {'apparent': goat.wind_apparent(),
+                'absolute': goat.wind_absolute(),
+                'speed': speed}
+    except AttributeError:
+        log.exception('Error when attempting to read wind direction')
+        raise
+
+
 class VersionHandler(tornado.web.RequestHandler):
     def get(self):
         response = {'goatd': {'version': VERSION}}
+        self.write(response)
+
+
+class GoatHandler(tornado.web.RequestHandler):
+    def initialize(self, goat):
+        self.goat = goat
+
+    def get(self):
+        response = {
+            'heading': self.goat.heading(),
+            'wind': get_wind_dict(self.goat),
+            'position': self.goat.position(),
+            'active': self.goat.active,
+            'rudder_angle': '{0:.4g}'.format(self.goat.target_rudder_angle),
+            'sail_angle': '{0:.4g}'.format(self.goat.target_sail_angle),
+        }
         self.write(response)
 
 
@@ -51,6 +82,7 @@ class GoatdAPI(object):
 
         self.app = tornado.web.Application([
             (r'/', VersionHandler),
+            (r'/goat', GoatHandler, {'goat' : self.goat}),
         ])
 
     def run(self):
@@ -141,19 +173,6 @@ class GoatdHTTPServer(ThreadingMixIn, HTTPServer):
 
         return self.behaviours()
 
-    def wind(self):
-        try:
-            speed = self.goat.wind_speed()
-        except (AttributeError, TypeError):
-            speed = -1
-
-        try:
-            return {'apparent': self.goat.wind_apparent(),
-                    'absolute': self.goat.wind_absolute(),
-                    'speed': speed}
-        except AttributeError:
-            log.exception('Error when attempting to read wind direction')
-            raise
 
     def goat_active(self):
         return {'value': self.goat.active}
