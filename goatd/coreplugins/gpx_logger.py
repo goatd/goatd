@@ -52,7 +52,7 @@ class GPXLoggerPlugin(BasePlugin):
         
             while self.running:
                 goat_heading = self.goatd.goat.heading()
-                goat_wind_direction = self.goatd.goat.wind_direction()
+                goat_wind_direction = self.goatd.goat.wind_absolute()
                 goat_lat, goat_lon = self.goatd.goat.position()
                 goat_sail = 0 #self.goatd.goat.sail() TODO: Get sail position from goatd
                 goat_rudder = 0 #self.goatd.goat.rudder() TODO: Get rudder position from goatd

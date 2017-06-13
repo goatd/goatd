@@ -46,7 +46,7 @@ class LoggerPlugin(BasePlugin):
 
         while self.running:
             heading = self.goatd.goat.heading()
-            wind_direction = self.goatd.goat.wind_direction()
+            wind_direction = self.goatd.goat.wind_absolute()
             lat, lon = self.goatd.goat.position()
 
             ts = time.time()
