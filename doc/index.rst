@@ -48,6 +48,12 @@ Install goatd and its dependencies from the latest published stable release::
     $ pip install goatd
 
 
+Installing with Docker
+----------------------
+
+    $ docker build -t goatd .
+
+
 Installing for development
 --------------------------
 
@@ -96,6 +102,46 @@ Run the installer::
 
 Running goatd
 =============
+
+Running with Docker:
+--------------------
+
+Assumming you have built the docker image locally:
+
+Quick-start:
+
+.. code:: bash
+
+    $ docker run -d -p 2222:2222 goatd
+    $ curl localhost:2222
+    {"goatd": {"version": 1.3}}
+
+By default, the image uses the example configuration, drivers and behaviours. 
+
+There are three major ways to develop using this Docker image. 
+
+1. Modify the configuration and mount the custom configuration.
+2. Simply mount a directory (e.g. for plugins, drivers or behaviours).
+3. A combination of the above.
+
+For example, to use a custom driver:
+
+.. code:: bash
+    # Create some directories to hold our new work
+    $ mkdir config && mkdir drivers
+
+    # Update default config to use "my_awesome_driver.py"
+    $ sed 's/basic_driver\.py/my_awesome_driver\.py/' goatd-config.yaml.example > config/custom-goatd-config.yaml
+
+    # Make a modified copy of the "basic_driver.py"
+    $ sed 's/MyFancy/MyAwesome/' example/basic_driver.py > drivers/my_awesome_driver.py
+
+    # Run with MyAwesomeGoatDriver
+    $ docker run -v `pwd`:/opt/goatd -e CONFIG=/opt/goatd/config/custom-goatd-config.yaml -p 2222:2222 goatd
+
+
+Running locally:
+--------
 
 .. code:: bash
 
