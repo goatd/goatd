@@ -13,7 +13,12 @@ COPY ./bin/goatd /usr/local/bin/
 RUN sed -i.bak 's/127\.0\.0\.1/0\.0\.0\.0/' /opt/goatd/config/goatd-config.yaml && \
     rm /opt/goatd/config/goatd-config.yaml.bak
 
-RUN pip3 install -r requirements.txt && \
+RUN apk update && \
+    apk add git && \
+    pip3 install -r requirements.txt && \
+    python3 setup.py install && \
+    git clone https://github.com/goatd/python-goatd.git && \
+    cd python-goatd && \
     python3 setup.py install && \
     rm -rf /build
 
